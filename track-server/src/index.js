@@ -5,6 +5,7 @@ var bodyParser = require("body-parser");
 require("./models/user");
 
 var authRouter = require("./routes/auth");
+const requireAuth = require("./middleware/requireAuth");
 
 var app = express();
 
@@ -28,8 +29,8 @@ mongoose.connection.on("error", err => {
   logError(err);
 });
 
-app.get("/", function(req, res) {
-  res.send("hello world");
+app.get("/", requireAuth, function(req, res) {
+  return res.send(req.user);
 });
 
 app.listen(3000, () => console.log("listening on port 3000"));
