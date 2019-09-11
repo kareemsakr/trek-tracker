@@ -24,4 +24,8 @@ const switchNavigator = createSwitchNavigator({
   })
 });
 
+SignupScreen.navigationOptions = {
+  header: null
+};
+
 export default createAppContainer(switchNavigator);
