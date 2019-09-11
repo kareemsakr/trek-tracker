@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Button as ReactButton } from "react-native";
 import { Text, Input, Button } from "react-native-elements";
 import Spacer from "../components/spacer";
 
@@ -31,6 +31,8 @@ export default function SignUp({ navigation }) {
       </Spacer>
       <Spacer>
         <Button title="Sign Up" />
+
+        <ReactButton title="Login" />
       </Spacer>
     </View>
   );
