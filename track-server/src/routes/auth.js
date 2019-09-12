@@ -12,13 +12,18 @@ router.post("/signup", async (req, res) => {
       email: req.body.email,
       password: req.body.password
     });
+
+    if (!req.body.email || !req.body.password) {
+      return res.status(400).send("Please provide email and password");
+    }
+
     await newUser.save();
     var payload = {
       iat: Math.round(Date.now() / 1000),
       exp: Math.round(Date.now() / 1000 + 30 * 24 * 60),
       iss: "Whatever the issuer is example: localhost:3000",
-      email: user.email,
-      id: user._id
+      email: newUser.email,
+      id: newUser._id
     };
 
     var token = jwt.sign(payload, "secret");
