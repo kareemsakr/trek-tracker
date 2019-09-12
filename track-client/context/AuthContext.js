@@ -6,18 +6,24 @@ const reducer = (state, action) => {
 };
 
 const signUp = dispatch => {
-  return () => {
+  return ({ email, password }) => {
     dispatch({ type: "signUp", payload: "" });
   };
 };
 const login = dispatch => {
-  return () => {
+  return ({ email, password }) => {
     dispatch({ type: "signUp", payload: "" });
+  };
+};
+
+const signOut = dispatch => {
+  return () => {
+    dispatch({ type: "signOut", payload: "" });
   };
 };
 
 export const { Context, Provider } = createDataContext(
   reducer,
   { signUp, login },
-  {}
+  { isSignedIn: false }
 );
