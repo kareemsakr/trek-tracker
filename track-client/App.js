@@ -30,11 +30,15 @@ SignupScreen.navigationOptions = {
   header: null
 };
 
+LoginScreen.navigationOptions = {
+  header: null
+};
+
 const App = createAppContainer(switchNavigator);
 export default () => {
   return (
     <AuthProvider>
-      <App ref={app => setNavigator(app)} />
+      <App ref={navigator => setNavigator(navigator)} />
     </AuthProvider>
   );
 };

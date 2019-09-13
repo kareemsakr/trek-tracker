@@ -2,7 +2,6 @@ import { NavigationActions } from "react-navigation";
 let navigator;
 
 export const setNavigator = nav => {
-  console.log(nav);
   navigator = nav;
 };
 

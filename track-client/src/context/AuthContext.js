@@ -18,6 +18,7 @@ const reducer = (state, action) => {
 
 const signUp = dispatch => {
   return async ({ email, password }) => {
+    console.log(email, password);
     try {
       const { data } = await trackerApi.post("/signup", {
         email,
@@ -28,6 +29,7 @@ const signUp = dispatch => {
       dispatch({ type: "signUp", payload: { user, token } });
       navigate("TrackListScreen");
     } catch (error) {
+      console.log(error.message);
       if (error.response.status === 500) {
         dispatch({ type: "serverError", payload: "Something went wrong" });
       } else {
@@ -40,7 +42,6 @@ const login = dispatch => {
   return async ({ email, password }) => {
     try {
       const { data } = await trackerApi.post("/login", { email, password });
-      console.log(data);
       const { user, token } = data;
       dispatch({ type: "login", payload: { user, token } });
     } catch (error) {}
