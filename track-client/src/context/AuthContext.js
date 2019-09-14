@@ -5,12 +5,15 @@ import trackerApi from "../api/tracker";
 import { navigate } from "../navigationRef";
 const reducer = (state, action) => {
   switch (action.type) {
+    case "signOut":
+      return { token: null, errorMessage: "" };
     case "serverError":
     case "signUpError":
       return { ...state, errorMessage: action.payload };
     case "signup":
       return { token: action.payload.token, errorMessage: "" };
-
+    case "clearErrorMessage":
+      return { ...state, errorMessage: "" };
     default:
       return state;
   }
@@ -18,7 +21,6 @@ const reducer = (state, action) => {
 
 const signUp = dispatch => {
   return async ({ email, password }) => {
-    console.log(email, password);
     try {
       const { data } = await trackerApi.post("/signup", {
         email,
@@ -43,19 +45,43 @@ const login = dispatch => {
     try {
       const { data } = await trackerApi.post("/login", { email, password });
       const { user, token } = data;
+      await AsyncStorage.setItem("token", token);
       dispatch({ type: "login", payload: { user, token } });
-    } catch (error) {}
+      navigate("TrackListScreen");
+    } catch (error) {
+      if (error.response.status === 500) {
+        dispatch({ type: "serverError", payload: "Something went wrong" });
+      } else {
+        dispatch({ type: "signUpError", payload: error.response.data });
+      }
+    }
   };
 };
 
+const localSignIn = dispatch => async () => {
+  const token = await AsyncStorage.getItem("token", token);
+
+  if (token) {
+    dispatch({ type: "login", payload: { token } });
+    navigate("TrackListScreen");
+  } else {
+    navigate("LoginFlow");
+  }
+};
+
+const clearErrorMessage = dispatch => {
+  return () => dispatch({ type: "clearErrorMessage" });
+};
 const signOut = dispatch => {
-  return () => {
+  return async () => {
+    await AsyncStorage.removeItem("token");
     dispatch({ type: "signOut", payload: "" });
+    navigate("LoginFlow");
   };
 };
 
 export const { Context, Provider } = createDataContext(
   reducer,
-  { signUp, login },
+  { signUp, login, clearErrorMessage, localSignIn, signOut },
   { token: null, errorMessage: "" }
 );

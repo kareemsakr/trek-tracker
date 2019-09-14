@@ -14,9 +14,8 @@ export default function AuthForm({
 }) {
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
-  //const { state, signUp } = useContext(AuthContext);
   return (
-    <View style={styles.container}>
+    <>
       <Spacer>
         <Text h3>{formTitle}</Text>
       </Spacer>
@@ -42,19 +41,17 @@ export default function AuthForm({
         <Text style={styles.errorMessage}>{errorMessage}</Text>
       ) : null}
       <Spacer>
-        <Button title={formTitle} onPress={() => onSubmit(email, password)} />
+        <Button
+          title={formTitle}
+          onPress={() => onSubmit({ email, password })}
+        />
         <NavLink title={linkTitle} navigateTo={navigateTo} />
       </Spacer>
-    </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    marginBottom: 200
-  },
   errorMessage: {
     fontSize: 16,
     color: "red",

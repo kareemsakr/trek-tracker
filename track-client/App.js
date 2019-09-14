@@ -8,21 +8,23 @@ import SignupScreen from "./src/screens/SignupScreen";
 import TrackCreateScreen from "./src/screens/TrackCreateScreen";
 import TrackDetailScreen from "./src/screens/TrackDetailScreen";
 import TrackListScreen from "./src/screens/TrackListScreen";
+import ResolveAuthScreen from "./src/screens/resolveAuthScreen";
 import { Provider as AuthProvider } from "./src/context/AuthContext";
 import { setNavigator } from "./src/navigationRef";
 
 const switchNavigator = createSwitchNavigator({
-  loginFlow: createStackNavigator({
-    Signup: SignupScreen,
-    Login: LoginScreen
+  ResolveAuthScreen,
+  LoginFlow: createStackNavigator({
+    Login: LoginScreen,
+    Signup: SignupScreen
   }),
   mainFlow: createBottomTabNavigator({
     Tracks: createStackNavigator({
       TrackListScreen,
       TrackDetailScreen
     }),
-    Account: AccountScreen,
-    Create: TrackCreateScreen
+    Create: TrackCreateScreen,
+    Account: AccountScreen
   })
 });
 
