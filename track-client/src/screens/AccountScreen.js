@@ -6,7 +6,7 @@ import { Context as AuthContext } from "../context/AuthContext";
 export default function AccountScreen() {
   const { signOut } = useContext(AuthContext);
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} forceInset={{ top: "always" }}>
       <Text>Account Screen</Text>
       <Button title="Sign Out" onPress={signOut}></Button>
     </SafeAreaView>
