@@ -4,9 +4,13 @@ import MapView, { Polyline, Circle } from "react-native-maps";
 import { Context as LocationContext } from "../context/LocationContext";
 
 export default function Map() {
-  const { state, startScrolling, stopScrolling } = useContext(LocationContext);
+  const {
+    state: { isScrolling, currentLocation, location },
+    startScrolling,
+    stopScrolling
+  } = useContext(LocationContext);
 
-  if (!state.currentLocation.coords) {
+  if (!currentLocation.coords) {
     return (
       <ActivityIndicator
         size="large"
@@ -23,10 +27,10 @@ export default function Map() {
       //   longitudeDelta: 0.01
       // }}
       region={
-        state.isScrolling
+        isScrolling
           ? null
           : {
-              ...state.currentLocation.coords,
+              ...currentLocation.coords,
               latitudeDelta: 0.01,
               longitudeDelta: 0.01
             }
@@ -36,17 +40,17 @@ export default function Map() {
     >
       <Circle
         radius={30}
-        center={state.currentLocation.coords}
+        center={currentLocation.coords}
         strokeColor="rgba(158,158,255,1.0)"
         fillColor="rgba(158,158,255,0.3)"
       ></Circle>
-      {/* <Polyline coordinates={path}></Polyline> */}
+      <Polyline coordinates={location.map(l => l.coords)}></Polyline>
     </MapView>
   );
 }
 
 const styles = StyleSheet.create({
   map: {
-    height: 350
+    height: 300
   }
 });

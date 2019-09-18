@@ -4,20 +4,29 @@ import Spacer from "../components/spacer";
 import { Context } from "../context/LocationContext";
 
 export default function TrackForm() {
-  const { state, setTrackName } = useContext(Context);
+  const {
+    state: { isRecording, trackName, location },
+    setTrackName,
+    toggleRecording,
+    saveTrack
+  } = useContext(Context);
+  console.log(location.length);
+
+  let buttonTitle = isRecording ? "Stop" : "Start Recording";
   return (
     <>
       <Spacer>
         <Text>Track Name</Text>
-        <Input value={state.trackName} onChangeText={setTrackName}></Input>
+        <Input value={trackName} onChangeText={setTrackName}></Input>
       </Spacer>
-      <Button />
+      <Spacer>
+        <Button title={buttonTitle} onPress={toggleRecording} />
+        <Spacer />
+
+        {isRecording && location.length > 0 ? (
+          <Button title="Save" onPress={saveTrack} />
+        ) : null}
+      </Spacer>
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  }
-});
