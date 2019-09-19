@@ -23,7 +23,7 @@ export default function TrackForm() {
         <Button title={buttonTitle} onPress={toggleRecording} />
         <Spacer />
 
-        {isRecording && location.length > 0 ? (
+        {!isRecording && location.length > 0 ? (
           <Button title="Save" onPress={saveTrack} />
         ) : null}
       </Spacer>
