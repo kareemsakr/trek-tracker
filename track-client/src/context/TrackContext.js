@@ -4,6 +4,8 @@ import trackAPI from "../api/tracker";
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case "add_tracks":
+      return [...action.payload];
     default:
       return state;
   }
