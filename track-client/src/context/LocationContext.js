@@ -30,6 +30,8 @@ const reducer = (state, action) => {
       return { ...state, trackName: action.payload };
     case "toggle_recording":
       return { ...state, isRecording: !state.isRecording };
+    case "reset":
+      return { ...state, isRecording: false, location: [], trackName: "" };
     default:
       return state;
   }
@@ -54,6 +56,10 @@ const setTrackName = dispatch => name => {
   dispatch({ type: "set_track_name", payload: name });
 };
 
+const reset = dispatch => () => {
+  dispatch({ type: "reset" });
+};
+
 export const { Context, Provider } = createDataContext(
   reducer,
   {
@@ -61,7 +67,8 @@ export const { Context, Provider } = createDataContext(
     addLocation,
     startScrolling,
     stopScrolling,
-    setTrackName
+    setTrackName,
+    reset
   },
   {
     isRecording: false,

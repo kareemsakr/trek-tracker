@@ -12,8 +12,18 @@ import ResolveAuthScreen from "./src/screens/resolveAuthScreen";
 import { Provider as AuthProvider } from "./src/context/AuthContext";
 import { Provider as LocationProvider } from "./src/context/LocationContext";
 import { Provider as TrackProvider } from "./src/context/TrackContext";
+import { FontAwesome } from "@expo/vector-icons";
 
 import { setNavigator } from "./src/navigationRef";
+
+const TracksNavigation = createStackNavigator({
+  TrackListScreen,
+  TrackDetailScreen
+});
+
+TracksNavigation.navigationOptions = {
+  tabBarIcon: <FontAwesome name="th-list" size={20} />
+};
 
 const switchNavigator = createSwitchNavigator({
   ResolveAuthScreen,
@@ -22,10 +32,7 @@ const switchNavigator = createSwitchNavigator({
     Signup: SignupScreen
   }),
   mainFlow: createBottomTabNavigator({
-    Tracks: createStackNavigator({
-      TrackListScreen,
-      TrackDetailScreen
-    }),
+    Tracks: TracksNavigation,
     Create: TrackCreateScreen,
     Account: AccountScreen
   })

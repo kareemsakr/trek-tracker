@@ -28,6 +28,10 @@ export default function TrackListScreen({ navigation }) {
   );
 }
 
+TrackListScreen.navigationOptions = {
+  title: "My Tracks"
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1

@@ -7,6 +7,8 @@ import Map from "../components/map";
 import { Context as LocationContext } from "../context/LocationContext";
 import TrackForm from "../components/trackForm";
 import useLocation from "../hooks/useLocation";
+import { FontAwesome } from "@expo/vector-icons";
+import Spacer from "../components/spacer";
 
 const TrackCreateScreen = ({ isFocused }) => {
   const {
@@ -17,13 +19,21 @@ const TrackCreateScreen = ({ isFocused }) => {
   return (
     <SafeAreaView style={styles.container} forceInset={{ top: "always" }}>
       <KeyboardAvoidingView behavior="position" enabled>
-        <Text h2>Create a Track</Text>
+        <Text style={{ alignSelf: "center" }} h2>
+          Create a Track
+        </Text>
+
         <Map />
         {error ? <Text>{error}</Text> : null}
         <TrackForm />
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
+};
+
+TrackCreateScreen.navigationOptions = {
+  title: "Add Track",
+  tabBarIcon: <FontAwesome name="plus" size={20} />
 };
 
 const styles = StyleSheet.create({
