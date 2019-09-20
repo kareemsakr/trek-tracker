@@ -54,15 +54,6 @@ const setTrackName = dispatch => name => {
   dispatch({ type: "set_track_name", payload: name });
 };
 
-const saveTrack = dispatch => name => {
-  //call API
-
-  //stop recording
-  dispatch({ type: "save_track" });
-
-  //navigate to tracks list(try to load tracks from the back end again)
-};
-
 export const { Context, Provider } = createDataContext(
   reducer,
   {

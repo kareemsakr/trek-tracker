@@ -60,7 +60,7 @@ const login = dispatch => {
 
 const localSignIn = dispatch => async () => {
   const token = await AsyncStorage.getItem("token", token);
-
+  console.log(token);
   if (token) {
     dispatch({ type: "login", payload: { token } });
     navigate("TrackListScreen");

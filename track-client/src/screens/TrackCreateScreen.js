@@ -1,6 +1,6 @@
 import "../_mockLocation";
 import React, { useContext } from "react";
-import { StyleSheet, View, KeyboardAvoidingView } from "react-native";
+import { StyleSheet, KeyboardAvoidingView } from "react-native";
 import { SafeAreaView, withNavigationFocus } from "react-navigation";
 import { Text } from "react-native-elements";
 import Map from "../components/map";
@@ -9,7 +9,6 @@ import TrackForm from "../components/trackForm";
 import useLocation from "../hooks/useLocation";
 
 const TrackCreateScreen = ({ isFocused }) => {
-  //console.log(props);
   const {
     state: { isRecording },
     addLocation

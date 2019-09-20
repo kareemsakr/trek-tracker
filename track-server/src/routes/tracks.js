@@ -23,6 +23,7 @@ router.post("/tracks", async (req, res) => {
 
     const track = new Track({ name, locations, userId: req.user._id });
     await track.save();
+    console.log({ name, locations, userId: req.user._id });
     return res.send(track);
   } catch (error) {
     res.status(422).send({ error: error.message });

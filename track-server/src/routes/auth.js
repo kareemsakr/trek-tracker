@@ -19,9 +19,9 @@ router.post("/signup", async (req, res) => {
 
     await newUser.save();
     var payload = {
-      iat: Math.round(Date.now() / 1000),
-      exp: Math.round(Date.now() / 1000 + 30 * 24 * 60),
-      iss: "Whatever the issuer is example: localhost:3000",
+      // iat: Math.round(Date.now() / 1000),
+      // exp: Math.round(Date.now() / 1000 + 30 * 24 * 60),
+      // iss: "Whatever the issuer is example: localhost:3000",
       email: newUser.email,
       id: newUser._id
     };
@@ -29,7 +29,7 @@ router.post("/signup", async (req, res) => {
     var token = jwt.sign(payload, "secret");
     return res.status(201).json({
       user: { email: newUser.email, id: newUser._id },
-      token: `JWT ${token}`,
+      token,
       msg: "User was succesfully created"
     });
   } catch (error) {
@@ -47,9 +47,9 @@ router.post("/login", async (req, res) => {
     const isMatch = await user.comparePassword(req.body.password);
     if (isMatch) {
       var payload = {
-        iat: Math.round(Date.now() / 1000),
-        exp: Math.round(Date.now() / 1000 + 30 * 24 * 60),
-        iss: "Whatever the issuer is example: localhost:3000",
+        // iat: Math.round(Date.now() / 1000),
+        // exp: Math.round(Date.now() / 1000 + 30 * 24 * 60),
+        // iss: "Whatever the issuer is example: localhost:3000",
         email: user.email,
         id: user._id
       };
@@ -57,7 +57,7 @@ router.post("/login", async (req, res) => {
       var token = jwt.sign(payload, "secret");
       return res.status(201).json({
         user: { email: user.email, id: user._id },
-        token: `JWT ${token}`,
+        token,
         msg: "User was succesfully logged in."
       });
     } else {

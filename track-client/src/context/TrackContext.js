@@ -12,11 +12,15 @@ const reducer = (state, action) => {
 };
 
 const fetchTracks = dispatch => async () => {
-  const response = await trackAPI.get("/tracks");
-  dispatch({ type: "add_tracks", payload: response.data });
+  try {
+    const response = await trackAPI.get("/tracks");
+    dispatch({ type: "add_tracks", payload: response.data });
+  } catch (error) {
+    console.log(error.response.data.error);
+  }
 };
 
-const saveTrack = dispatch => async (name, locations) => {
+const createTrack = dispatch => async (name, locations) => {
   await trackAPI.post("/tracks", { name, locations });
 };
 
@@ -24,7 +28,7 @@ export const { Context, Provider } = createDataContext(
   reducer,
   {
     fetchTracks,
-    saveTrack
+    createTrack
   },
   []
 );

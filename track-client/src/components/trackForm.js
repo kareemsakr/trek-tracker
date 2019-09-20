@@ -2,15 +2,15 @@ import React, { useContext } from "react";
 import { Text, Input, Button } from "react-native-elements";
 import Spacer from "../components/spacer";
 import { Context } from "../context/LocationContext";
+import useTracks from "../hooks/useTracks";
 
 export default function TrackForm() {
   const {
     state: { isRecording, trackName, location },
     setTrackName,
-    toggleRecording,
-    saveTrack
+    toggleRecording
   } = useContext(Context);
-  console.log(location.length);
+  const [saveTrack] = useTracks();
 
   let buttonTitle = isRecording ? "Stop" : "Start Recording";
   return (
